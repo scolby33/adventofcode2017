@@ -1,4 +1,5 @@
 use std::io::{self, BufRead};
+use std::collections::HashMap;
 
 pub fn run() {
     assert!(get_spiral_coords(11)==(2, 0));
@@ -11,16 +12,47 @@ pub fn run() {
     assert!(solve1(23)==2);
     assert!(solve1(1024)==31);
 
+    assert!(solve2(1)==2);
+    assert!(solve2(2)==4);
+    assert!(solve2(747)==806);
+
     // Get the input
     let stdin = io::stdin();
     let input: u32 = stdin.lock().lines().next().unwrap().unwrap().parse().unwrap();
 
     println!("Day 3-1: {}", solve1(input));
+    println!("Day 3-2: {}", solve2(input));
 }
 
 fn solve1(square: u32) -> u32 {
    let (x, y) = get_spiral_coords(square);
    x.abs() as u32 + y.abs() as u32
+}
+
+fn solve2(square: u32) -> u32 {
+    let mut storage: HashMap<(i32, i32), u32> = HashMap::new();
+    storage.insert((0, 0), 1);
+
+    let mut i = 2;
+    loop {
+        let mut acc: u32 = 0;
+        let (x, y) = get_spiral_coords(i);
+        acc += storage.get(&(x+1, y)).unwrap_or(&0);
+        acc += storage.get(&(x+1, y+1)).unwrap_or(&0);
+        acc += storage.get(&(x, y+1)).unwrap_or(&0);
+        acc += storage.get(&(x-1, y+1)).unwrap_or(&0);
+        acc += storage.get(&(x-1, y)).unwrap_or(&0);
+        acc += storage.get(&(x-1, y-1)).unwrap_or(&0);
+        acc += storage.get(&(x, y-1)).unwrap_or(&0);
+        acc += storage.get(&(x+1, y-1)).unwrap_or(&0);
+        
+        storage.insert((x, y), acc);
+
+        if acc > square {
+            return acc;
+        }
+        i += 1;
+    }
 }
 
 fn get_spiral_coords(n: u32) -> (i32, i32) {
