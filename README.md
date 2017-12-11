@@ -12,4 +12,5 @@ Input is expected on stdin: `adventofcode2017 1 < day01.txt`
 
 - Refactor some for loops into functional paradigms
 - Remove the runtime `assert!`s and instead write tests
+- Refactor some items (Count iterator, for example) into a util module
 
