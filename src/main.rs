@@ -1,7 +1,15 @@
-//mod day01;
+use std::env;
+
+mod day01;
 mod day02;
 
 fn main() {
-    //day01::run();
-    day02::run();
+    let args: Vec<String> = env::args().collect();
+    let day: u32 = args[1].parse().expect("Provide a number");
+    
+    match day {
+        1 => day01::run(),
+        2 => day02::run(),
+        _ => (),
+    }
 }
