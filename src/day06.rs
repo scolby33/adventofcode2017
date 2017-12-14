@@ -40,7 +40,7 @@ fn solve1(mut memory: Vec<u32>) -> (u32, Vec<u32>) {
 
 fn solve2(mut memory: Vec<u32>, final_memory: Vec<u32>, total_steps: u32) -> u32 {
     let buckets = memory.len();
-    
+
     let mut steps = 0;
     loop {
         let max = *memory.iter().max().unwrap();
