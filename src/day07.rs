@@ -18,17 +18,17 @@ pub fn run() {
                  "gyxo (61)".to_string(),
                  "cntj (57)".to_string()
     ]);
-    assert!(solve1(test_graph) == "tknk".to_string());
+    assert!(solve1(&test_graph) == "tknk".to_string());
 
     // Get the input
     let stdin = io::stdin();
     let input: Vec<String> = stdin.lock().lines().filter_map(|l| l.ok()).collect();
 
     let graph = create_graph(input);
-    println!("Day 7-1: {}", solve1(graph));
+    println!("Day 7-1: {}", solve1(&graph));
 }
 
-fn solve1(graph: Graph) -> String {
+fn solve1(graph: &Graph) -> String {
     let mut has_parent: HashSet<NodeIndex> = HashSet::new();
     for node in 0..graph.nodes.len() {
         for child in graph.successors(node) {
